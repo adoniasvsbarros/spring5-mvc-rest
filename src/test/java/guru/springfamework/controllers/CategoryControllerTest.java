@@ -59,7 +59,7 @@ public class CategoryControllerTest {
 		
 		when(categoryService.getAllCategories()).thenReturn(categories);
 		
-		mockMvc.perform(get("/api/v1/categories")
+		mockMvc.perform(get("/api/v1/categories/")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.categories", hasSize(2)));
