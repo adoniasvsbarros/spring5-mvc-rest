@@ -29,6 +29,8 @@ jobs:
             - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+            
+      - run: mvn install -DskipTests
 
       - run: mvn dependency:go-offline
 
@@ -39,3 +41,11 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+      
+      - store_test_results:
+          path: target/surefire-reports
+          
+      - run: 
+          name: Send to CodeCov
+          command: bash <(curl -s https://codecov.io/bash)
+
