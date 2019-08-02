@@ -21,6 +21,7 @@ import guru.springfamework.repositories.CustomerRepository;
 
 public class CustomerServiceTest {
 	
+	private static final String API_V1_CUSTOMERS_URL = "/api/v1/customers/";
 	private final static String FIRST_NAME = "Fred";
 	private final static String LAST_NAME = "Mercury";
 	
@@ -81,6 +82,27 @@ public class CustomerServiceTest {
 		
 		//then
 		assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-		assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+		assertEquals(API_V1_CUSTOMERS_URL + "1", savedDto.getCustomerUrl());
+	}
+	
+	@Test
+	public void updateCustomer() throws Exception {
+		//given
+		CustomerDTO customerDTO = new CustomerDTO();
+		customerDTO.setFirstname("Jim");
+		
+		Customer savedCustomer = new Customer();
+		savedCustomer.setFirstname(customerDTO.getFirstname());
+		savedCustomer.setLastname(customerDTO.getLastname());
+		savedCustomer.setId(1L);
+		
+		when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+		
+		//when
+		CustomerDTO savedDto= customerService.saveCustomerByDTO(1L, customerDTO);
+		
+		//then
+		assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
+		assertEquals(API_V1_CUSTOMERS_URL + "1", savedDto.getCustomerUrl());
 	}
 }
