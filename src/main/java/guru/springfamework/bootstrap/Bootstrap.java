@@ -4,7 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import guru.springfamework.domain.Category;
+import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CategoryRepository;
+import guru.springfamework.repositories.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -12,14 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 public class Bootstrap implements CommandLineRunner {
 
 	CategoryRepository categoryRepository;
+	CustomerRepository customerRepository;
 
-	public Bootstrap(CategoryRepository categoryRepository) {
-		super();
+	public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
 		this.categoryRepository = categoryRepository;
+		this.customerRepository = customerRepository;
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		loadCategories();
+		loadCustomers();
+	}
+	
+	public void loadCategories() {
 		Category fruits = new Category();
 		fruits.setName("Fruits");
 
@@ -41,8 +49,27 @@ public class Bootstrap implements CommandLineRunner {
 		categoryRepository.save(exotic);
 		categoryRepository.save(nuts);
 
-		log.info("Data " + categoryRepository.count() +  " categories loaded");
+		log.info("Data " + categoryRepository.count() + " categories loaded");
+	}
+	
+	public void loadCustomers() {
+		Customer susan = new Customer();
+		susan.setFirstname("Susan");
+		susan.setLastname("Boyle");
 
+		Customer charlie = new Customer();
+		charlie.setFirstname("Charlie");
+		charlie.setLastname("Frankstain");
+
+		Customer matt = new Customer();
+		matt.setFirstname("Matt");
+		matt.setLastname("Simons");
+
+		customerRepository.save(susan);
+		customerRepository.save(charlie);
+		customerRepository.save(matt);
+		
+		log.info("Data " + customerRepository.count() + " customers loaded");
 	}
 
 }
