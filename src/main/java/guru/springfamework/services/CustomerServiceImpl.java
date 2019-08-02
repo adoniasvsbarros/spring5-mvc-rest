@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-	private static final String API_V1_CUSTOMERS_URL = "/api/v1/customers/";
 
 	private CustomerRepository customerRepository;
 	private CustomerMapper customerMapper;
@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<CustomerDTO> getAllCustomers() {
 		return customerRepository.findAll().stream().map(customer -> {
 			CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-			customerDTO.setCustomerUrl(API_V1_CUSTOMERS_URL + customer.getId());
+			customerDTO.setCustomerUrl(getUrl(customer.getId()));
 			return customerDTO;
 		}).collect(Collectors.toList());
 	}
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerDTO getCustomerById(Long id) {
 		return customerRepository.findById(id).map(customer -> {
 			CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-			customerDTO.setCustomerUrl(API_V1_CUSTOMERS_URL + customer.getId());
+			customerDTO.setCustomerUrl(getUrl(customer.getId()));
 			return customerDTO;
 		}).orElseThrow(RuntimeException::new);
 	}
@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		CustomerDTO returnDto = customerMapper.customerToCustomerDTO(savedCustomer);
 
-		returnDto.setCustomerUrl(API_V1_CUSTOMERS_URL + savedCustomer.getId());
+		returnDto.setCustomerUrl(getUrl(savedCustomer.getId()));
 
 		return returnDto;
 	}
@@ -79,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
 			}
 
 			CustomerDTO returnDTO = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
-			returnDTO.setCustomerUrl(API_V1_CUSTOMERS_URL + id);
+			returnDTO.setCustomerUrl(getUrl(id));
 
 			return returnDTO;
 
@@ -91,4 +91,7 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.deleteById(id);
 	}
 
+	private String getUrl(Long id) {
+		return CustomerController.BASE_URL + "/" + id;
+	}
 }
