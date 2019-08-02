@@ -19,7 +19,7 @@ import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 
-public class CustomerServiceTest {
+public class CustomerServiceImplTest {
 	
 	private static final String API_V1_CUSTOMERS_URL = "/api/v1/customers/";
 	private final static String FIRST_NAME = "Fred";

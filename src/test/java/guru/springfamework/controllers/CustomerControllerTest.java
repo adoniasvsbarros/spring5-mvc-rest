@@ -1,6 +1,7 @@
 package guru.springfamework.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -48,7 +49,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 	}
 	
 	@Test
-	public void getCustomersController() throws Exception {
+	public void testGetAllCustomers() throws Exception {
 		CustomerDTO customer1 = new CustomerDTO();
 		customer1.setFirstname(FIRST_NAME);
 		customer1.setLastname(LAST_NAME);
@@ -57,18 +58,18 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 		CustomerDTO customer2 = new CustomerDTO();
 		customer2.setFirstname("Bob");
 		customer2.setLastname("Marley");
-		customer2.setCustomerUrl("/api/v1/customer/2");
+		customer2.setCustomerUrl(API_V1_CUSTOMERS_URL + "2");
 		
 		when(customerService.getAllCustomers()).thenReturn(Arrays.asList(customer1, customer2));
 		
-		mockMvc.perform(get("/api/v1/customers/")
+		mockMvc.perform(get(API_V1_CUSTOMERS_URL)
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.customers", hasSize(2)));
 	}
 	
 	@Test
-	public void getCustomerById() throws Exception {
+	public void testGetCustomerById() throws Exception {
 		CustomerDTO customer1 = new CustomerDTO();
 		customer1.setFirstname(FIRST_NAME);
 		customer1.setLastname(LAST_NAME);
@@ -84,7 +85,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 	}
 	
 	@Test
-	public void createNewCustomer() throws Exception{
+	public void testCreateNewCustomer() throws Exception{
 		CustomerDTO customer = new CustomerDTO();
 		customer.setFirstname(FIRST_NAME);
 		customer.setLastname(LAST_NAME);
@@ -96,7 +97,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 		
 		when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
 		
-		mockMvc.perform(post("/api/v1/customers/")
+		mockMvc.perform(post(API_V1_CUSTOMERS_URL)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(customer)))
 		.andExpect(status().isCreated())
@@ -105,7 +106,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 	}
 	
 	@Test
-	public void updateCustomerById() throws Exception{
+	public void testUpdateCustomerById() throws Exception{
 		//given
 		CustomerDTO customer = new CustomerDTO();
 		customer.setFirstname(FIRST_NAME);
@@ -128,6 +129,27 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 		.andExpect(jsonPath("$.customer_url", equalTo(API_V1_CUSTOMERS_URL + "1")));
 		
 	}
-
 	
+    @Test
+    public void testPatchCustomer() throws Exception {
+
+        //given
+        CustomerDTO customer = new CustomerDTO();
+        customer.setFirstname("Fred");
+
+        CustomerDTO returnDTO = new CustomerDTO();
+        returnDTO.setFirstname(customer.getFirstname());
+        returnDTO.setLastname("Flintstone");
+        returnDTO.setCustomerUrl("/api/v1/customers/1");
+
+        when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
+
+        mockMvc.perform(patch("/api/v1/customers/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(customer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstname", equalTo("Fred")))
+                .andExpect(jsonPath("$.lastname", equalTo("Flintstone")))
+                .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
+    }
 }
