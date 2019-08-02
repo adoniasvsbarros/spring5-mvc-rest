@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.controllers.v1.CustomerController;
+import guru.springfamework.controllers.v1.RestResponseEntityExceptionHandler;
 import guru.springfamework.services.CustomerService;
 
 public class CustomerControllerTest extends AbstractRestControllerTest{
@@ -47,7 +48,9 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 	@Before
 	public void setupContext() throws Exception{
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+				.setControllerAdvice(new RestResponseEntityExceptionHandler())
+				.build();
 	}
 	
 	@Test

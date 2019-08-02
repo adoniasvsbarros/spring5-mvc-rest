@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.controllers.v1.CategoryController;
+import guru.springfamework.controllers.v1.RestResponseEntityExceptionHandler;
 import guru.springfamework.services.CategoryService;
 
 public class CategoryControllerTest {
@@ -40,7 +41,9 @@ public class CategoryControllerTest {
 	@Before
 	public void setUp() throws Exception{
 		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
+				.setControllerAdvice(new RestResponseEntityExceptionHandler())
+				.build();
 	}
 	
 	@Test

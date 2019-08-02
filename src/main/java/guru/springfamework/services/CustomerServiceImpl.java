@@ -9,6 +9,7 @@ import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
+import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.repositories.CustomerRepository;
 
 @Service
@@ -38,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
 			customerDTO.setCustomerUrl(getUrl(customer.getId()));
 			return customerDTO;
-		}).orElseThrow(RuntimeException::new);
+		}).orElseThrow(ResourceNotFoundException::new);  
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 			return returnDTO;
 
-		}).orElseThrow(RuntimeException::new);
+		}).orElseThrow(ResourceNotFoundException::new);
 	}
 
 	@Override
