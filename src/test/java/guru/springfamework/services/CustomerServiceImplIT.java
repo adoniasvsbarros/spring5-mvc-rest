@@ -22,6 +22,7 @@ import guru.springfamework.bootstrap.Bootstrap;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CategoryRepository;
 import guru.springfamework.repositories.CustomerRepository;
+import guru.springfamework.repositories.VendorRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,6 +35,9 @@ public class CustomerServiceImplIT {
 	
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	CustomerService customerService;
 	
@@ -42,7 +46,7 @@ public class CustomerServiceImplIT {
 		log.info("Loading customer data " + customerRepository.findAll().size());
 		
 		//setup data for testing 
-		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
 		bootstrap.run();
 		
 		customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);

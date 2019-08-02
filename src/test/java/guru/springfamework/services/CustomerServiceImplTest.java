@@ -67,7 +67,7 @@ public class CustomerServiceImplTest {
 	}
 	
 	@Test
-	public void createNewCustomer() throws Exception {
+	public void testCreateNewCustomer() throws Exception {
 		//given
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setFirstname("Jim");
@@ -88,7 +88,7 @@ public class CustomerServiceImplTest {
 	}
 	
 	@Test
-	public void updateCustomer() throws Exception {
+	public void testUpdateCustomer() throws Exception {
 		//given
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setFirstname("Jim");
@@ -109,7 +109,7 @@ public class CustomerServiceImplTest {
 	}
 	
 	@Test
-	public void deleteCustomer() throws Exception{
+	public void testDeleteCustomer() throws Exception{
 		Long id = 1L;
 		
 		customerService.deleteCustomerById(id);
