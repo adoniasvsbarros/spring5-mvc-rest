@@ -4,6 +4,14 @@
 
 This RESTFul Webservice is meant to consume data based on the [Fruit Shop API](https://api.predic8.de/shop/docs#!/)
 
+### Run the Project:
+
+* Download the executable JAR
+* Execute in your local terminal the command: java -jar spring5-mvc-rest-0.0.1.jar
+
+### Check the API Swagger Documentation 
+
+* Access it from: http://localhost:8080/swagger-ui.html
 
 This repository is for an example application built in my Spring Framework 5 - Beginner to Guru
 
