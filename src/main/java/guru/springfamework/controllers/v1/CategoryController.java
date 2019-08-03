@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.api.v1.model.CategoryListDTO;
 import guru.springfamework.services.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(description = "Category API")
 @RestController
 @RequestMapping(CategoryController.BASE_URL)
 public class CategoryController {
@@ -23,6 +26,7 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 
+	@ApiOperation(value = "List all categories")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryListDTO getAllCategories() {
@@ -31,6 +35,7 @@ public class CategoryController {
 
 	}
 
+	@ApiOperation(value = "Get category by id")
 	@GetMapping("{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryDTO getCategoryByName(@PathVariable String name) {
