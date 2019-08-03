@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -45,10 +45,10 @@ public class SwaggerConfig { //extends WebMvcConfigurationSupport{
                 "adoniasvicente@hotmail.com");
 
         return new ApiInfo(
-                "Shop API ",
+                "Spring5 Shop REST API ",
                 "Created by Adonias Barros",
                 "1.0",
-                "Terms of Service: blah",
+                "Terms of Service: none",
                 contact,
                 "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0",
