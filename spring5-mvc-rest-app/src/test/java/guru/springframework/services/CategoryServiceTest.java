@@ -1,4 +1,4 @@
-package guru.springfamework.services;
+package guru.springframework.services;
 
 import org.junit.Before;
 import org.junit.Test;

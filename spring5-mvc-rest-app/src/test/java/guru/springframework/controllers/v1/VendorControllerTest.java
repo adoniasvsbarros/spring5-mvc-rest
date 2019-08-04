@@ -1,4 +1,4 @@
-package guru.springfamework.controllers.v1;
+package guru.springframework.controllers.v1;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.any;
@@ -97,18 +97,16 @@ public class VendorControllerTest extends AbstractRestControllerTest {
 
 		VendorDTO returnVendor = new VendorDTO();
 		returnVendor.setName(vendor.getName());
+		returnVendor.setVendorurl(VendorController.BASE_URL + "/1");
 
 		when(vendorService.updateVendor(anyLong(), any(VendorDTO.class))).thenReturn(returnVendor);
 
-		String contentString = mockMvc.perform(put(VendorController.BASE_URL + "/1").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put(VendorController.BASE_URL + "/1")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(asJsonString(vendor)))
-				.andReturn().getResponse().getContentAsString();
-		
-		System.out.println(contentString);
-		
-//				.andExpect(status().isOk())
-//				.andExpect(jsonPath("$.name", equalTo("Buba Store")))
-//				.andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/1")));
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.name", equalTo("Buba Store")))
+				.andExpect(jsonPath("$.vendor_url", equalTo(VendorController.BASE_URL + "/1")));
 	}
 
 	@Test

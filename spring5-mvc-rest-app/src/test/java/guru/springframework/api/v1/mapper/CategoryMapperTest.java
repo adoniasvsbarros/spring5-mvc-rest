@@ -1,4 +1,4 @@
-package guru.springfamework.api.v1.mapper;
+package guru.springframework.api.v1.mapper;
 
 import static org.junit.Assert.*;
 

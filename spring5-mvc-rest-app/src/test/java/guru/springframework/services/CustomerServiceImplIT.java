@@ -1,4 +1,4 @@
-package guru.springfamework.services;
+package guru.springframework.services;
 
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsEqual.equalTo;

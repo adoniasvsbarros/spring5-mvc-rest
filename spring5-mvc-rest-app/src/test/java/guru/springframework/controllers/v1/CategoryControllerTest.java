@@ -1,4 +1,4 @@
-package guru.springfamework.controllers.v1;
+package guru.springframework.controllers.v1;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
