@@ -12,11 +12,6 @@
 	<artifactId>spring5-mvc-rest-app</artifactId>
 	<name>spring5-mvc-rest-app</name>
 
-	<scm>
-		<developerConnection>scm:git:git@github.com:adoniasvsbarros/spring5-mvc-rest.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
-
 	<dependencies>
 		<dependency>
 			<groupId>guru.springframework</groupId>
